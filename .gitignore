@@ -1,0 +1,6 @@
+# Project exclude paths
+/common/common-core/target/
+/gateway/target/
+/modules/goods/target/
+/modules/system/target/
+/modules/trade/target/

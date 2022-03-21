@@ -1,0 +1,36 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: goods
+          uri: lb://goods
+          predicates:
+            - Path=/goods/**
+          filters:
+            - StripPrefix=1
+        - id: trade
+          uri: lb://trade
+          predicates:
+            - Path=/trade/**
+          filters:
+            - StripPrefix=1
+        - id: system
+          uri: lb://system
+          predicates:
+            - Path=/system/**
+          filters:
+            - StripPrefix=1
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+
+white:
+  address:
+    - /login
+    - /logout
+    - /refresh

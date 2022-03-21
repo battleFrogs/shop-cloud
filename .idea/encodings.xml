@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/common/common-core/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common/common-core/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common/common-feign/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common/common-feign/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/feign-api/goods-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/feign-api/goods-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/feign-api/system-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/feign-api/system-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/feign-api/trade-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/feign-api/trade-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gateway/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modules/goods/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modules/goods/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modules/system/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modules/system/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modules/trade/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modules/trade/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

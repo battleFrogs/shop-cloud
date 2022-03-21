@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="trade" />
+        <module name="system" />
+        <module name="system-api" />
+        <module name="common-feign" />
+        <module name="goods" />
+        <module name="gateway" />
+        <module name="goods-api" />
+        <module name="common-core" />
+        <module name="trade-api" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>
