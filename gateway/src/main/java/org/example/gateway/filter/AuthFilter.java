@@ -1,13 +1,13 @@
 package org.example.gateway.filter;
 
 import org.apache.commons.lang3.StringUtils;
+import org.example.common.core.utils.JwtUtils;
+import org.example.common.core.utils.ServletUtils;
 import org.example.gateway.properties.WhiteProperties;
-import org.example.gateway.utils.ResponseUtils;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
@@ -36,9 +36,22 @@ public class AuthFilter implements GlobalFilter, Ordered {
         // 判断请求头是否有token
         String authToken = exchange.getRequest().getHeaders().getFirst("Auth-Token");
         if (StringUtils.isBlank(authToken)) {
-            return ResponseUtils.webFluxResponseWriter(response, MediaType.APPLICATION_JSON_VALUE,
+            return ServletUtils.webFluxResponseWriter(response,
                     HttpStatus.INTERNAL_SERVER_ERROR, "没有请求头", 500);
         }
+
+        // 校验登录是否过期
+
+
+        // 校验信息是否完整
+        String useId = JwtUtils.getUseId(authToken);
+        String useName = JwtUtils.getUseName(authToken);
+        if (StringUtils.isBlank(useId) || StringUtils.isBlank(useName)) {
+            return ServletUtils.webFluxResponseWriter(response,
+                    HttpStatus.INTERNAL_SERVER_ERROR, "信息为空", 500);
+        }
+
+
 
 
         return chain.filter(exchange);
