@@ -53,7 +53,7 @@ public class JwtUtils {
      * @param token Token值
      * @return useId  具体useId值
      */
-    public static String getUseId(String token) {
+    public static String getUserId(String token) {
         Claims claims = parseToken(token);
         return getValue(claims, USE_ID);
     }
@@ -78,7 +78,7 @@ public class JwtUtils {
      * @return 具体的value
      */
     private static String getValue(Claims claims, String key) {
-        return claims.get(key) == null ? "" : (String) claims.get(key);
+        return claims.get(key) == null ? "" : String.valueOf(claims.get(key)) ;
     }
 
 }

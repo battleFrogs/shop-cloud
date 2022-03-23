@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.example.common.global.handler.GlobalExceptionHandler,\
+  org.example.common.global.interceptor.HeaderInterceptor,\
+  org.example.common.global.config.WebMvcConfig

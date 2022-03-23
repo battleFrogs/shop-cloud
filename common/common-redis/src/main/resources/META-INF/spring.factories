@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.example.common.redis.utils.RedisUtils,\
+  org.example.common.redis.config.RedisConfig,\
+  org.example.common.redis.token.TokenUtils

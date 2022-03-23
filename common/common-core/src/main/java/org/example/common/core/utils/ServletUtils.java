@@ -28,30 +28,24 @@ import java.util.Objects;
 
 /**
  * 客户端工具类
- * 
+ *
  * @author ruoyi
  */
-public class ServletUtils
-{
+public class ServletUtils {
     /**
      * 获取String参数
      */
-    public static String getParameter(String name)
-    {
+    public static String getParameter(String name) {
         return Objects.requireNonNull(getRequest()).getParameter(name);
     }
 
     /**
      * 获取request
      */
-    public static HttpServletRequest getRequest()
-    {
-        try
-        {
+    public static HttpServletRequest getRequest() {
+        try {
             return getRequestAttributes().getRequest();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return null;
         }
     }
@@ -59,14 +53,10 @@ public class ServletUtils
     /**
      * 获取response
      */
-    public static HttpServletResponse getResponse()
-    {
-        try
-        {
+    public static HttpServletResponse getResponse() {
+        try {
             return getRequestAttributes().getResponse();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return null;
         }
     }
@@ -74,42 +64,32 @@ public class ServletUtils
     /**
      * 获取session
      */
-    public static HttpSession getSession()
-    {
+    public static HttpSession getSession() {
         return getRequest().getSession();
     }
 
-    public static ServletRequestAttributes getRequestAttributes()
-    {
-        try
-        {
+    public static ServletRequestAttributes getRequestAttributes() {
+        try {
             RequestAttributes attributes = RequestContextHolder.getRequestAttributes();
             return (ServletRequestAttributes) attributes;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return null;
         }
     }
 
-    public static String getHeader(HttpServletRequest request, String name)
-    {
+    public static String getHeader(HttpServletRequest request, String name) {
         String value = request.getHeader(name);
-        if (StringUtils.isEmpty(value))
-        {
+        if (StringUtils.isEmpty(value)) {
             return StringUtils.EMPTY;
         }
         return urlDecode(value);
     }
 
-    public static Map<String, String> getHeaders(HttpServletRequest request)
-    {
+    public static Map<String, String> getHeaders(HttpServletRequest request) {
         Map<String, String> map = new LinkedHashMap<>();
         Enumeration<String> enumeration = request.getHeaderNames();
-        if (enumeration != null)
-        {
-            while (enumeration.hasMoreElements())
-            {
+        if (enumeration != null) {
+            while (enumeration.hasMoreElements()) {
                 String key = enumeration.nextElement();
                 String value = request.getHeader(key);
                 map.put(key, value);
@@ -120,22 +100,18 @@ public class ServletUtils
 
     /**
      * 将字符串渲染到客户端
-     * 
+     *
      * @param response 渲染对象
-     * @param string 待渲染的字符串
+     * @param string   待渲染的字符串
      * @return null
      */
-    public static String renderString(HttpServletResponse response, String string)
-    {
-        try
-        {
+    public static String renderString(HttpServletResponse response, String string) {
+        try {
             response.setStatus(200);
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
             response.getWriter().print(string);
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
@@ -144,36 +120,28 @@ public class ServletUtils
 
     /**
      * 内容编码
-     * 
+     *
      * @param str 内容
      * @return 编码后的内容
      */
-    public static String urlEncode(String str)
-    {
-        try
-        {
+    public static String urlEncode(String str) {
+        try {
             return URLEncoder.encode(str, Constants.UTF8);
-        }
-        catch (UnsupportedEncodingException e)
-        {
+        } catch (UnsupportedEncodingException e) {
             return StringUtils.EMPTY;
         }
     }
 
     /**
      * 内容解码
-     * 
+     *
      * @param str 内容
      * @return 解码后的内容
      */
-    public static String urlDecode(String str)
-    {
-        try
-        {
+    public static String urlDecode(String str) {
+        try {
             return URLDecoder.decode(str, Constants.UTF8);
-        }
-        catch (UnsupportedEncodingException e)
-        {
+        } catch (UnsupportedEncodingException e) {
             return StringUtils.EMPTY;
         }
     }
@@ -182,11 +150,10 @@ public class ServletUtils
      * 设置webflux模型响应
      *
      * @param response ServerHttpResponse
-     * @param value 响应内容
+     * @param value    响应内容
      * @return Mono<Void>
      */
-    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, Object value)
-    {
+    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, Object value) {
         return webFluxResponseWriter(response, HttpStatus.OK, value, ResultData.FAIL);
     }
 
@@ -194,12 +161,11 @@ public class ServletUtils
      * 设置webflux模型响应
      *
      * @param response ServerHttpResponse
-     * @param code 响应状态码
-     * @param value 响应内容
+     * @param code     响应状态码
+     * @param value    响应内容
      * @return Mono<Void>
      */
-    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, Object value, int code)
-    {
+    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, Object value, int code) {
         return webFluxResponseWriter(response, HttpStatus.OK, value, code);
     }
 
@@ -207,28 +173,26 @@ public class ServletUtils
      * 设置webflux模型响应
      *
      * @param response ServerHttpResponse
-     * @param status http状态码
-     * @param code 响应状态码
-     * @param value 响应内容
+     * @param status   http状态码
+     * @param code     响应状态码
+     * @param value    响应内容
      * @return Mono<Void>
      */
-    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, HttpStatus status, Object value, int code)
-    {
+    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, HttpStatus status, Object value, int code) {
         return webFluxResponseWriter(response, MediaType.APPLICATION_JSON_VALUE, status, value, code);
     }
 
     /**
      * 设置webflux模型响应
      *
-     * @param response ServerHttpResponse
+     * @param response    ServerHttpResponse
      * @param contentType content-type
-     * @param status http状态码
-     * @param code 响应状态码
-     * @param value 响应内容
+     * @param status      http状态码
+     * @param code        响应状态码
+     * @param value       响应内容
      * @return Mono<Void>
      */
-    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, String contentType, HttpStatus status, Object value, int code)
-    {
+    public static Mono<Void> webFluxResponseWriter(ServerHttpResponse response, String contentType, HttpStatus status, Object value, int code) {
         response.setStatusCode(status);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, contentType);
         ResultData<?> result = ResultData.fail(code, value.toString());
