@@ -60,6 +60,13 @@ public class AuthFilter implements GlobalFilter, Ordered {
             return ServletUtils.webFluxResponseWriter(response,
                     HttpStatus.INTERNAL_SERVER_ERROR, "登录过期", 401);
         }
+        if (!loginUser.getToken().equals(authToken)) {
+            return ServletUtils.webFluxResponseWriter(response,
+                    HttpStatus.INTERNAL_SERVER_ERROR, "token不一致", 500);
+        }
+        // 如果快过期的时候刷新
+        tokenUtils.verifyToken(Long.valueOf(userId), loginUser);
+
         addHeader(mutate, JwtUtils.USE_ID, userId);
         addHeader(mutate, JwtUtils.USE_NAME, useName);
 

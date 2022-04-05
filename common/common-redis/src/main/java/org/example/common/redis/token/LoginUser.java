@@ -7,6 +7,7 @@ public class LoginUser {
 
     private Long loginTime;
     private Long expireTime;
+    private String token;
 
 
 

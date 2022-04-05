@@ -1,5 +1,6 @@
 package org.example.common.core.utils;
 
+import cn.hutool.core.util.RandomUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -20,6 +21,7 @@ public class JwtUtils {
      */
     public final static String USE_ID = "userId";
     public final static String USE_NAME = "userName";
+    public final static String RANDOM_STRING = "randomString";
 
 
     /**
@@ -31,6 +33,7 @@ public class JwtUtils {
                 // 自定义属性
                 .claim(USE_ID, useId)
                 .claim(USE_NAME, userName)
+                .claim(RANDOM_STRING, RandomUtil.randomString(RandomUtil.BASE_CHAR_NUMBER, 10))
                 // 签名算法和密钥
                 .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact();

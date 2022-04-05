@@ -41,10 +41,10 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException(Constants.FAIL, "账号或密码错误");
         }
 
-        tokenUtils.refreshToken(user.getUserId());
-
         // 创建token值
         String token = JwtUtils.createAccessToken(user.getUserId(), user.getUserName());
+
+        tokenUtils.refreshToken(user.getUserId(), token);
 
         LoginVO loginVO = new LoginVO();
         loginVO.setToken(token);
