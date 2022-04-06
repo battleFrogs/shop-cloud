@@ -1,55 +1,21 @@
 package org.example.system.service.impl;
 
-import org.example.common.core.constants.Constants;
-import org.example.common.core.exception.ServiceException;
-import org.example.common.core.utils.JwtUtils;
-import org.example.system.dao.repository.UserRepository;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.example.system.mapper.UserMapper;
 import org.example.system.model.User;
-import org.example.common.redis.token.*;
-import org.example.system.param.LoginParam;
-import org.example.system.param.LoginRegisterParam;
 import org.example.system.service.UserService;
-import org.example.system.vo.LoginVO;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
-import javax.annotation.Resource;
-
-@Service
-public class UserServiceImpl implements UserService {
-
-
-    @Resource
-    private UserRepository userRepository;
-    @Resource
-    private TokenUtils tokenUtils;
+@Repository
+public class UserServiceImpl extends ServiceImpl<UserMapper, User>
+        implements UserService {
 
 
     @Override
-    public void register(LoginRegisterParam param) {
-        User user = new User();
-        user.setUserName(param.getUserName());
-        user.setPassword(param.getPassword());
-        user.setPhone(param.getPhone());
-        userRepository.save(user);
-    }
-
-    @Override
-    public LoginVO login(LoginParam param) {
-
-        User user = userRepository.getByUserNameAndPassword(param.getUserName(), param.getPassword());
-        if (user == null) {
-            throw new ServiceException(Constants.FAIL, "账号或密码错误");
-        }
-
-        // 创建token值
-        String token = JwtUtils.createAccessToken(user.getUserId(), user.getUserName());
-
-        tokenUtils.refreshToken(user.getUserId(), token);
-
-        LoginVO loginVO = new LoginVO();
-        loginVO.setToken(token);
-
-        return loginVO;
-
+    public User getByUserNameAndPassword(String userName, String password) {
+        return this.lambdaQuery()
+                .eq(User::getUserName, userName)
+                .eq(User::getPassword, password)
+                .one();
     }
 }

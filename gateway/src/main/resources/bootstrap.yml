@@ -5,6 +5,7 @@ spring:
     name: gateway
   cloud:
     gateway:
+      # 配置跨域
       globalcors:
         cors-configurations:
           '[/**]':
