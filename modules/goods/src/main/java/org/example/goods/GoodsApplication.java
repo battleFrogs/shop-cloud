@@ -1,10 +1,13 @@
 package org.example.goods;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@ComponentScan(basePackages = {"org.example.goods.mapper"})
+@MapperScan(basePackages = {"org.example.goods.mapper"})
 @SpringBootApplication
 public class GoodsApplication {
 

@@ -43,7 +43,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
         String authToken = exchange.getRequest().getHeaders().getFirst("Auth-Token");
         if (StringUtils.isBlank(authToken)) {
             return ServletUtils.webFluxResponseWriter(response,
-                    HttpStatus.INTERNAL_SERVER_ERROR, "没有请求头", 500);
+                    HttpStatus.UNAUTHORIZED, "没有请求头", 401);
         }
 
         // 校验信息是否完整
@@ -51,18 +51,18 @@ public class AuthFilter implements GlobalFilter, Ordered {
         String useName = JwtUtils.getUseName(authToken);
         if (StringUtils.isBlank(userId) || StringUtils.isBlank(useName)) {
             return ServletUtils.webFluxResponseWriter(response,
-                    HttpStatus.INTERNAL_SERVER_ERROR, "信息为空", 500);
+                    HttpStatus.UNAUTHORIZED, "信息为空", 401);
         }
 
         // 校验登录是否过期
         LoginUser loginUser = tokenUtils.getLoginUser(Long.valueOf(userId));
         if (loginUser == null) {
             return ServletUtils.webFluxResponseWriter(response,
-                    HttpStatus.INTERNAL_SERVER_ERROR, "登录过期", 401);
+                    HttpStatus.UNAUTHORIZED, "登录过期", 401);
         }
         if (!loginUser.getToken().equals(authToken)) {
             return ServletUtils.webFluxResponseWriter(response,
-                    HttpStatus.INTERNAL_SERVER_ERROR, "token不一致", 500);
+                    HttpStatus.UNAUTHORIZED, "token不一致", 401);
         }
         // 如果快过期的时候刷新
         tokenUtils.verifyToken(Long.valueOf(userId), loginUser);
