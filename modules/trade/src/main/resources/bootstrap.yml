@@ -1,9 +1,18 @@
 server:
-  port: 9003
+  port: 9013
 spring:
   application:
     name: trade
+  profiles:
+    # 环境配置
+    active: dev
   cloud:
     nacos:
-      discovery:
+      config:
+        # 配置中心地址
         server-addr: 127.0.0.1:8848
+        # 配置文件格式
+        file-extension: yml
+        # 共享配置
+        shared-configs:
+          - application-${spring.application.name}-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}

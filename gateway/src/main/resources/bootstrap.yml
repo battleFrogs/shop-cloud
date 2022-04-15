@@ -3,48 +3,17 @@ server:
 spring:
   application:
     name: gateway
+  profiles:
+    # 环境配置
+    active: dev
   cloud:
-    gateway:
-      # 配置跨域
-      globalcors:
-        cors-configurations:
-          '[/**]':
-            allowedOriginPatterns: "*"
-            allowed-methods: "*"
-            allowed-headers: "*"
-            allow-credentials: true
-            exposedHeaders: "Content-Disposition,Content-Type,Cache-Control"
-      routes:
-        - id: goods
-          uri: lb://goods
-          predicates:
-            - Path=/goods/**
-          filters:
-            - StripPrefix=1
-        - id: trade
-          uri: lb://trade
-          predicates:
-            - Path=/trade/**
-          filters:
-            - StripPrefix=1
-        - id: system
-          uri: lb://system
-          predicates:
-            - Path=/system/**
-          filters:
-            - StripPrefix=1
     nacos:
-      discovery:
+      config:
+        # 配置中心地址
         server-addr: 127.0.0.1:8848
-  redis:
-    database: 0
-    host: localhost
-    port: 6379
-    password:
+        # 配置文件格式
+        file-extension: yml
+        # 共享配置
+        shared-configs:
+          - application-${spring.application.name}-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
 
-white:
-  address:
-    - /system/login
-    - /system/logout
-    - /system/refresh
-    - /system/register

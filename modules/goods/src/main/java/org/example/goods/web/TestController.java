@@ -5,7 +5,9 @@ import org.example.common.core.constants.ResultData;
 import org.example.goods.vo.GetGoodsVO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
