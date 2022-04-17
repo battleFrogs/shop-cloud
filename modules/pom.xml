@@ -33,6 +33,7 @@
         <module>goods</module>
         <module>trade</module>
         <module>system</module>
+        <module>visual</module>
     </modules>
 
 </project>
