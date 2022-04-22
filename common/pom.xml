@@ -18,6 +18,7 @@
         <module>common-mybatis</module>
         <module>common-global</module>
         <module>common-minio</module>
+        <module>common-rocketmq</module>
     </modules>
 
 
