@@ -7,7 +7,6 @@ import io.minio.errors.*;
 import io.minio.http.Method;
 import org.example.common.core.constants.ResultData;
 import org.example.common.core.exception.ServiceException;
-import org.example.properties.MinioProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,22 +22,14 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class UploadApplication {
 
-
     @Resource
-    private MinioProperties minioProperties;
+    private MinioClient minioClient;
 
     public void upload(MultipartFile file, String bucket, String name) {
 
         try (
                 InputStream inputStream = file.getInputStream()
         ) {
-
-            MinioClient minioClient =
-                    MinioClient.builder()
-                            .endpoint(minioProperties.getUrl())
-                            .credentials(minioProperties.getAccessKey(), minioProperties.getSecretKey())
-                            .build();
-
 
             minioClient.putObject(
                     PutObjectArgs.builder().bucket(bucket).object(name).stream(
@@ -57,11 +48,6 @@ public class UploadApplication {
 
 
     public String getPictureUrl(String bucket, String name) throws Exception{
-        MinioClient minioClient =
-                MinioClient.builder()
-                        .endpoint(minioProperties.getUrl())
-                        .credentials(minioProperties.getAccessKey(), minioProperties.getSecretKey())
-                        .build();
 
         Map<String, String> reqParams = new HashMap<>();
         reqParams.put("response-content-type", "image/jpeg");
