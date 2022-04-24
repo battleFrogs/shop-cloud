@@ -19,6 +19,7 @@
         <module>common-global</module>
         <module>common-minio</module>
         <module>common-rocketmq</module>
+        <module>common-mongodb</module>
     </modules>
 
 
