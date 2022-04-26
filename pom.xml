@@ -12,6 +12,7 @@
         <module>modules</module>
         <module>common</module>
         <module>feign-api</module>
+        <module>visual</module>
     </modules>
     <packaging>pom</packaging>
 
